@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Offline Map Data Management Service</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name ="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+
+    <link rel="stylesheet" th:href="@{/static/css/ol3/ol.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/ladda/ladda.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/ladda/ladda-themeless.min.css}"/>
+
+    <script th:src="@{/static/js/jquery/jquery.min.js}"/>
+    <script th:src="@{/static/js/d3/d3.min.js}"/>
+    <script th:src="@{/static/js/ol3/ol.js}"/>
+    <script th:src="@{/static/js/proj4/proj4.js}"/>
+    <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
+    <script th:src="@{/static/js/ladda/spin.min.js}"/>
+    <script th:src="@{/static/js/ladda/ladda.min.js}"/>
+    <script th:src="@{/static/js/ladda/ladda.jquery.min.js}"/>
+
+    <script th:src="@{/static/js-make/ol3-externalFunc/ol3-RectangularDraw.js}"/>
+    <script th:src="@{/static/main.js}"/>
+
+    <style>
+        html, body{
+            width: 100%;
+            height: 100%;
+        }
+        div, input {
+            padding:0;
+            margin:0;
+        }
+        #map {
+            width: 100%;
+            height: 70%;
+        }
+        .ol-zoom {
+            left : auto;
+            right : 8px;
+            top: 5px;
+            padding : 0;
+        }
+        .title-font-style {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom:4px;
+        }
+        .label-font-style {
+            text-align:center;
+            font-size:16px;
+            font-weight:600;
+        }
+    </style>
+</head>
+<body>
+<span class="title-font-style">Offline Map Data Management Service</span>
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-lg-2 label-font-style">
+            Latitude Min
+        </div>
+        <div class="col-lg-2 label-font-style">
+            Latitude Max
+        </div>
+        <div class="col-lg-2 label-font-style">
+            Longitude Min
+        </div>
+        <div class="col-lg-2 label-font-style">
+            Longitude Max
+        </div>
+        <div class="col-lg-2 label-font-style">
+            Zoom Min
+        </div>
+        <div class="col-lg-2 label-font-style">
+            Zoom Max
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row " style="margin-bottom:5px;">
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Lat Min" id="latMin"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Lat Max" id="latMax"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Long Min" id="longMin"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Long Max" id="longMax"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Zoom Min" value="1" id="zoomMin"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Zoom Max" value="15" id="zoomMax"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map">
+    <button type="button" id="drawToggleBtn" class="btn btn-primary" style="position:absolute; z-index:2;" data-toggle="button" aria-pressed="false" autocomplate="off">
+        Draw OFF
+    </button>
+</div>
+<div class="container-fluid">
+    <div class="row " style="margin-top:5px;">
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Raster Map Title" id="rasterMapTitle"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button id="downloadRasterBtn" class="ladda-button" data-color="purple"  data-style="expand-right"><span class="ladda-label">OSM Raster DOWNLOAD</span></button>
+        </div>
+
+
+        <div class="col-lg-2">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Vector Map Title" id="vectorMapTitle"/>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button id="downloadVectorBtn" class="ladda-button" data-color="purple"  data-style="expand-right"><span class="ladda-label">OSM Vector DOWNLOAD</span></button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
